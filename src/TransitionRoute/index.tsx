@@ -15,13 +15,17 @@ const TransitionRouteComponent = (props: IProps) => {
   const { routes } = props
   return (
     <TransitionGroup className={s.wrapper}>
-      <CSSTransition key={window.location.pathname} classNames="route" timeout={300}>
+      <CSSTransition
+        key={window.location.pathname}
+        classNames="route"
+        timeout={300}
+      >
         <Suspense fallback={<Loading />}>
           <Switch>
             {routes.map(r => (
               <Route {...r} />
             ))}
-            <Route component={() => <div>no route matched</div>} />
+            <Route component={() => <div>nav manus in the header</div>} />
           </Switch>
         </Suspense>
       </CSSTransition>

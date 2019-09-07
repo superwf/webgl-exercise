@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { History } from 'history'
 import { Router } from 'react-router-dom'
-import logo from './assets/logo.svg'
+import logo from 'assets/logo.svg'
 import { RouteProps } from 'react-router'
 
 import { TransitionRoute } from './TransitionRoute'

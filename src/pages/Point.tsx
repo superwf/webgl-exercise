@@ -1,5 +1,4 @@
 import * as React from 'react'
-import foo from '../App'
 import { getCanvas, initShaders, clearCanvas } from '../webglUtils'
 import { useWebgl } from '../hooks'
 

@@ -72,32 +72,6 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
   },
-  "eslintConfig": {
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-      "ecmaVersion": 2018,
-      "sourceType": "module",
-      "ecmaFeatures": {
-        "jsx": true
-      }
-    },
-    "plugins": [
-      "import",
-      "prettier",
-      "react-hooks"
-    ],
-    "extends": [
-      "prettier",
-      "prettier/react",
-      "plugin:import/errors",
-      "plugin:import/warnings",
-      "plugin:import/typescript"
-    ],
-    "rules": {
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn"
-    }
-  },
   "browserslist": {
     "production": [
       ">0.2%",
