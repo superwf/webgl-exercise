@@ -1,12 +1,12 @@
-import * as React from 'react';
+import * as React from 'react'
 import { History } from 'history'
 import { Router } from 'react-router-dom'
-import logo from './logo.svg';
+import logo from './assets/logo.svg'
 import { RouteProps } from 'react-router'
 
 import { TransitionRoute } from './TransitionRoute'
 import { Nav } from './Nav'
-import './App.css';
+import './App.css'
 import s from './App.module.less'
 
 interface IProps {
@@ -14,7 +14,7 @@ interface IProps {
   history: History
 }
 
-const App: React.FC<IProps> = (props) => {
+const App: React.FC<IProps> = props => {
   const { routes, history } = props
   return (
     <div className="App">
@@ -28,7 +28,7 @@ const App: React.FC<IProps> = (props) => {
         </Router>
       </section>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
