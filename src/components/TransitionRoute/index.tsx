@@ -15,11 +15,7 @@ const TransitionRouteComponent = (props: IProps) => {
   const { routes } = props
   return (
     <TransitionGroup className={s.wrapper}>
-      <CSSTransition
-        key={window.location.pathname}
-        classNames="route"
-        timeout={300}
-      >
+      <CSSTransition key={window.location.pathname} classNames="route" timeout={300}>
         <Suspense fallback={<Loading />}>
           <Switch>
             {routes.map(r => (

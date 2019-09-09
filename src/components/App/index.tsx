@@ -4,10 +4,9 @@ import { Router } from 'react-router-dom'
 import logo from 'assets/logo.svg'
 import { RouteProps } from 'react-router'
 
-import { TransitionRoute } from './TransitionRoute'
-import { Nav } from './Nav'
-import './App.css'
-import s from './App.module.less'
+import { TransitionRoute } from 'components/TransitionRoute'
+import { Nav } from 'components/Nav'
+import s from './style.module.less'
 
 interface IProps {
   routes: RouteProps[]
@@ -17,12 +16,12 @@ interface IProps {
 const App: React.FC<IProps> = props => {
   const { routes, history } = props
   return (
-    <div className="App">
+    <div className={s.app}>
       <header className={s.nav}>
         <Nav />
       </header>
-      <section className="App-header">
-        <canvas id="canvas" />
+      <section className={s.appHeader}>
+        <canvas id="canvas" className={s.canvas} />
         <Router history={history}>
           <TransitionRoute routes={routes} />
         </Router>

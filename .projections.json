@@ -1,3 +1,4 @@
 {
-  "src/pages/*": { "type": "pages" }
+  "src/pages/*": { "type": "pages" },
+  "src/components/*": { "type": "components" }
 }

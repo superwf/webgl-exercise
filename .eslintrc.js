@@ -31,6 +31,22 @@ const config = {
     'plugin:import/typescript',
   ],
   rules: {
+    'prettier/prettier': [
+      'error',
+      {
+        eslintIntegration: true,
+        stylelintIntegration: true,
+        printWidth: 120,
+        useTabs: false,
+        tabWidth: 2,
+        singleQuote: true,
+        semi: false,
+        trailingComma: 'all',
+        jsxBracketSameLine: false,
+        endOfLine: 'lf',
+      },
+    ],
+
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
   },

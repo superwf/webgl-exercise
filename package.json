@@ -132,11 +132,6 @@
       "jest-watch-typeahead/testname"
     ]
   },
-  "babel": {
-    "presets": [
-      "react-app"
-    ]
-  },
   "devDependencies": {
     "@teamsupercell/typings-for-css-modules-loader": "^2.0.0",
     "@types/history": "^4.7.3",
@@ -144,6 +139,7 @@
     "@types/react-router-dom": "^4.3.5",
     "@types/react-transition-group": "^4.2.2",
     "@types/webgl2": "^0.0.5",
+    "babel-plugin-module-resolver": "^3.2.0",
     "eslint-config-prettier": "^6.2.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-prettier": "^3.1.0",

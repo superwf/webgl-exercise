@@ -9,16 +9,16 @@ export const getCanvas: () => HTMLCanvasElement = () => {
  * @param gl GL context
  * @param vshader a vertex shader program (string)
  * @param fshader a fragment shader program (string)
- * @return true, if the program object was created and successfully made current 
+ * @return true, if the program object was created and successfully made current
  */
 export function initShaders(gl: WebGLRenderingContext, vshader: string, fshader: string) {
-  const program = createProgram(gl, vshader, fshader);
+  const program = createProgram(gl, vshader, fshader)
   if (!program) {
-    console.log('Failed to create program');
-    return false;
+    console.log('Failed to create program')
+    return false
   }
 
-  gl.useProgram(program);
+  gl.useProgram(program)
   return program
 }
 
@@ -31,36 +31,36 @@ export function initShaders(gl: WebGLRenderingContext, vshader: string, fshader:
  */
 function createProgram(gl: WebGLRenderingContext, vshader: string, fshader: string) {
   // Create shader object
-  var vertexShader = loadShader(gl, gl.VERTEX_SHADER, vshader);
-  var fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fshader);
+  var vertexShader = loadShader(gl, gl.VERTEX_SHADER, vshader)
+  var fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fshader)
   if (!vertexShader || !fragmentShader) {
-    return null;
+    return null
   }
 
   // Create a program object
   const program = gl.createProgram() as WebGLProgram
   if (!program) {
-    return null;
+    return null
   }
 
   // Attach the shader objects
-  gl.attachShader(program, vertexShader);
-  gl.attachShader(program, fragmentShader);
+  gl.attachShader(program, vertexShader)
+  gl.attachShader(program, fragmentShader)
 
   // Link the program object
-  gl.linkProgram(program);
+  gl.linkProgram(program)
 
   // Check the result of linking
-  var linked = gl.getProgramParameter(program, gl.LINK_STATUS);
+  var linked = gl.getProgramParameter(program, gl.LINK_STATUS)
   if (!linked) {
-    var error = gl.getProgramInfoLog(program);
-    console.log('Failed to link program: ' + error);
-    gl.deleteProgram(program);
-    gl.deleteShader(fragmentShader);
-    gl.deleteShader(vertexShader);
-    return null;
+    var error = gl.getProgramInfoLog(program)
+    console.log('Failed to link program: ' + error)
+    gl.deleteProgram(program)
+    gl.deleteShader(fragmentShader)
+    gl.deleteShader(vertexShader)
+    return null
   }
-  return program;
+  return program
 }
 
 /**
@@ -72,28 +72,28 @@ function createProgram(gl: WebGLRenderingContext, vshader: string, fshader: stri
  */
 function loadShader(gl: WebGLRenderingContext, type: number, source: string) {
   // Create shader object
-  var shader = gl.createShader(type);
+  var shader = gl.createShader(type)
   if (shader == null) {
-    console.log('unable to create shader');
-    return null;
+    console.log('unable to create shader')
+    return null
   }
 
   // Set the shader program
-  gl.shaderSource(shader, source);
+  gl.shaderSource(shader, source)
 
   // Compile the shader
-  gl.compileShader(shader);
+  gl.compileShader(shader)
 
   // Check the result of compilation
-  var compiled = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
+  var compiled = gl.getShaderParameter(shader, gl.COMPILE_STATUS)
   if (!compiled) {
-    var error = gl.getShaderInfoLog(shader);
-    console.log('Failed to compile shader: ' + error);
-    gl.deleteShader(shader);
-    return null;
+    var error = gl.getShaderInfoLog(shader)
+    console.log('Failed to compile shader: ' + error)
+    gl.deleteShader(shader)
+    return null
   }
 
-  return shader;
+  return shader
 }
 
 export function clearCanvas(gl: WebGLRenderingContext) {
@@ -101,16 +101,15 @@ export function clearCanvas(gl: WebGLRenderingContext) {
   gl.clear(gl.COLOR_BUFFER_BIT)
 }
 
-/** 
+/**
  * Initialize and get the rendering for WebGL
  * @param canvas <cavnas> element
  * @param opt_debug flag to initialize the context for debugging
  * @return the rendering context for WebGL
  */
 function getWebGLContext(canvas: HTMLCanvasElement) {
-  return canvas.getContext('webgl');
+  return canvas.getContext('webgl')
 }
-
 
 /* lib/webgl-utils.js */
 /*
@@ -143,7 +142,6 @@ function getWebGLContext(canvas: HTMLCanvasElement) {
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 
 /**
  * @fileoverview This file contains functions every webgl program will need
