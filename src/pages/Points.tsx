@@ -28,9 +28,9 @@ const pointData = new Float32Array([
   0.5, -0.5, 9.0, 0.0, 0.0, 1.0
 ])
 /* eslint-enable */
+const FSIZE = pointData.BYTES_PER_ELEMENT
 
 const draw = (gl: WebGLRenderingContext, program: WebGLProgram) => {
-  const FSIZE = pointData.BYTES_PER_ELEMENT
   const buffer = gl.createBuffer()
   gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
   gl.bufferData(gl.ARRAY_BUFFER, pointData, gl.STATIC_DRAW)
@@ -49,9 +49,6 @@ const draw = (gl: WebGLRenderingContext, program: WebGLProgram) => {
   const aColor = gl.getAttribLocation(program, 'a_Color')
   gl.vertexAttribPointer(aColor, 3, gl.FLOAT, false, FSIZE * 6, FSIZE * 3)
   gl.enableVertexAttribArray(aColor)
-
-  gl.clearColor(0.0, 0.0, 0.0, 1.0)
-  gl.clear(gl.COLOR_BUFFER_BIT)
 
   gl.drawArrays(gl.POINTS, 0, 3)
 }

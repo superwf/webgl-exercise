@@ -6,9 +6,20 @@
 }
 
 .link {
-  border: 1px solid #999;
-  border-radius: 3px;
   line-height: 1em;
   height: 1em;
-  padding: 3px;
+  text-decoration: none;
+  color: #1890ff;
+  transition: transform 0.2s;
+  &:hover {
+    transform: scale(1.1);
+  }
+  & + .link {
+    margin-left: 0.5em;
+    &:before {
+      content: '|';
+      padding-right: 0.5em;
+      color: #888;
+    }
+  }
 }

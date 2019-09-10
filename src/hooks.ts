@@ -9,10 +9,8 @@ export const useWebgl = (VSHADER: string, FSHADER: string, cb: RunGl) => {
     const canvas = getCanvas()
     const gl = canvas.getContext('webgl') as WebGLRenderingContext
     const program = initShaders(gl, VSHADER, FSHADER)
-    gl.clearColor(0.0, 0.0, 0.0, 1.0)
+    gl.clearColor(0.0, 0.0, 0.0, 0.6)
     gl.clear(gl.COLOR_BUFFER_BIT)
-
-    gl.drawArrays(gl.POINTS, 0, 1)
 
     cb(gl, program)
 
