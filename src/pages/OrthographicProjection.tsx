@@ -13,8 +13,7 @@ uniform mat4 u_rotate;
 varying vec4 v_Color;
 
 void main() {
-  gl_Position = u_rotate * u_ProjMatrix * u_ViewMatrix * a_Position;
-  gl_PointSize = 1.0;
+  gl_Position = u_ProjMatrix * u_ViewMatrix * u_rotate * a_Position;
   v_Color = a_Color;
 }`
 

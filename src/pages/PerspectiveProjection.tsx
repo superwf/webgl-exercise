@@ -13,8 +13,7 @@ uniform mat4 u_rotate;
 varying vec4 v_Color;
 
 void main() {
-  gl_Position = u_rotate * u_ProjMatrix * u_ViewMatrix * a_Position;
-  gl_PointSize = 1.0;
+  gl_Position = u_ProjMatrix * u_ViewMatrix * u_rotate * a_Position;
   v_Color = a_Color;
 }`
 
@@ -28,13 +27,13 @@ void main() {
 /* eslint-disable */
 const vertexData = new Float32Array([
     //顶点坐标颜色
-    0.0, 0.5, -0.4, 0.4, 1.0, 0.4,
-    -0.5, -0.5, -0.4, 0.4, 1.0, 0.4,
-    0.5, -0.5, -0.4, 1.0, 0.4, 0.4,
+    0.0, 0.5, -0.2, 0.4, 1.0, 0.4,
+    -0.5, -0.5, -0.2, 0.4, 1.0, 0.4,
+    0.5, -0.5, -0.2, 1.0, 0.4, 0.4,
 
-    0.5, 0.4, -0.2, 1.0, 0.4, 0.4,
-    -0.5, 0.4, -0.2, 1.0, 1.0, 0.4,
-    0, -0.6, -0.2, 1.0, 1.0, 0.4,
+    0.5, 0.4, 0.2, 1.0, 0.4, 0.4,
+    -0.5, 0.4, 0.2, 1.0, 1.0, 0.4,
+    0, -0.6, 0.2, 1.0, 1.0, 0.4,
 
     0.0, 0.5, 0.0, 0.4, 0.4, 1.0,
     -0.5, -0.5, 0.0, 0.4, 0.4, 1.0,
@@ -72,7 +71,7 @@ const drawPerspectiveProjection = (gl: WebGLRenderingContext, program: WebGLProg
     ey = 0.0,
     ez = 3.0
   const viewMatrix = mat4.create()
-  mat4.lookAt(viewMatrix, [ex, ey, ez], [0.0, 0.0, -1], [0.0, 1.0, 0.0])
+  mat4.lookAt(viewMatrix, [ex, ey, ez], [0.0, 0.0, -2], [0.0, 1.0, 0.0])
   const uViewMatrix = gl.getUniformLocation(program, 'u_ViewMatrix')
   gl.uniformMatrix4fv(uViewMatrix, false, viewMatrix)
 
