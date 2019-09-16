@@ -27,18 +27,18 @@ void main() {
 /* eslint-disable */
 const vertexData = new Float32Array([
     //顶点坐标颜色
-    0.0, 0.5, -0.2, 0.4, 1.0, 0.4,
-    -0.5, -0.5, -0.2, 0.4, 1.0, 0.4,
-    0.5, -0.5, -0.2, 1.0, 0.4, 0.4,
+    0.0, 0.5, -1.0, 0.4, 1.0, 0.4,
+    -0.5, -0.5, -1.0, 0.4, 1.0, 0.4,
+    0.5, -0.5, -1.0, 1.0, 0.4, 0.4,
 
     0.5, 0.4, 0.2, 1.0, 0.4, 0.4,
     -0.5, 0.4, 0.2, 1.0, 1.0, 0.4,
     0, -0.6, 0.2, 1.0, 1.0, 0.4,
 
-    0.0, 0.5, 0.0, 0.4, 0.4, 1.0,
-    -0.5, -0.5, 0.0, 0.4, 0.4, 1.0,
-    0.5, -0.5, 0.0, 1.0, 0.4, 0.4
-]);
+    0.0, 0.5, 1.0, 0.4, 0.4, 1.0,
+    -0.5, -0.5, 1.0, 0.4, 0.4, 1.0,
+    0.5, -0.5, 1.0, 1.0, 0.4, 0.4
+])
 /* eslint-enable */
 
 const pointCount = 9
@@ -60,9 +60,7 @@ const drawPerspectiveProjection = (gl: WebGLRenderingContext, program: WebGLProg
   gl.enableVertexAttribArray(aColor)
 
   // 旋转矩阵
-  const rotateMat = mat4.create()
-  const rotate = vec3.create()
-  mat4.fromRotation(rotateMat, rotateAngel, vec3.fromValues(0, 1, 0))
+  const rotateMat = mat4.fromRotation(mat4.create(), rotateAngel, vec3.fromValues(0, 1, 0))
   const uRotate = gl.getUniformLocation(program, 'u_rotate')
   gl.uniformMatrix4fv(uRotate, false, rotateMat)
 
@@ -70,23 +68,22 @@ const drawPerspectiveProjection = (gl: WebGLRenderingContext, program: WebGLProg
   const ex = 0.0,
     ey = 0.0,
     ez = 3.0
-  const viewMatrix = mat4.create()
-  mat4.lookAt(viewMatrix, [ex, ey, ez], [0.0, 0.0, -2], [0.0, 1.0, 0.0])
+  const viewMatrix = mat4.lookAt(mat4.create(), [ex, ey, ez], [0.0, 0.0, -2], [0.0, 1.0, 0.0])
   const uViewMatrix = gl.getUniformLocation(program, 'u_ViewMatrix')
   gl.uniformMatrix4fv(uViewMatrix, false, viewMatrix)
 
   // 设置投影
   const uProjMatrix = gl.getUniformLocation(program, 'u_ProjMatrix')
 
-  const fov = 30,
+  const fov = Math.PI / 3,
     aspect = 1.0
   const near = 1.0,
     far = 100.0
-  const projMatrix = mat4.create()
-  mat4.perspective(projMatrix, fov, aspect, near, far)
+  const projMatrix = mat4.perspective(mat4.create(), fov, aspect, near, far)
   gl.uniformMatrix4fv(uProjMatrix, false, projMatrix)
 
   gl.enable(gl.DEPTH_TEST)
+  gl.clear(gl.DEPTH_BUFFER_BIT)
 
   gl.drawArrays(gl.TRIANGLES, 0, pointCount)
 }

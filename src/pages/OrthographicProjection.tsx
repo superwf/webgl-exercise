@@ -60,9 +60,7 @@ const drawOrthographicProjection = (gl: WebGLRenderingContext, program: WebGLPro
   gl.enableVertexAttribArray(aColor)
 
   // 旋转矩阵
-  const rotateMat = mat4.create()
-  const rotate = vec3.create()
-  mat4.fromRotation(rotateMat, rotateAngel, vec3.fromValues(0, 1, 0))
+  const rotateMat = mat4.fromRotation(mat4.create(), rotateAngel, vec3.fromValues(0, 1, 0))
   const uRotate = gl.getUniformLocation(program, 'u_rotate')
   gl.uniformMatrix4fv(uRotate, false, rotateMat)
 
@@ -70,19 +68,18 @@ const drawOrthographicProjection = (gl: WebGLRenderingContext, program: WebGLPro
   const ex = 0.0,
     ey = 0.0,
     ez = 1.0
-  const viewMatrix = mat4.create()
-  mat4.lookAt(viewMatrix, [ex, ey, ez], [0.0, 0.0, -1], [0.0, 1.0, 0.0])
+  const viewMatrix = mat4.lookAt(mat4.create(), [ex, ey, ez], [0.0, 0.0, -1], [0.0, 1.0, 0.0])
   const uViewMatrix = gl.getUniformLocation(program, 'u_ViewMatrix')
   gl.uniformMatrix4fv(uViewMatrix, false, viewMatrix)
 
   // 设置投影
   const uProjMatrix = gl.getUniformLocation(program, 'u_ProjMatrix')
 
-  const projMatrix = mat4.create()
-  mat4.ortho(projMatrix, -1, 1, -1, 1, 0, 2)
+  const projMatrix = mat4.ortho(mat4.create(), -1, 1, -1, 1, 0, 2)
   gl.uniformMatrix4fv(uProjMatrix, false, projMatrix)
 
   gl.enable(gl.DEPTH_TEST)
+  gl.clear(gl.DEPTH_BUFFER_BIT)
 
   gl.drawArrays(gl.TRIANGLES, 0, pointCount)
 }
