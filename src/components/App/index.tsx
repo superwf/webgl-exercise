@@ -21,7 +21,7 @@ const App: React.FC<IProps> = props => {
         <Nav />
       </header>
       <section className={s.appHeader}>
-        <canvas id="canvas" className={s.canvas} />
+        <canvas width="500p" height="500" id="canvas" className={s.canvas} />
         <Router history={history}>
           <TransitionRoute routes={routes} />
         </Router>

@@ -1,19 +1,38 @@
 import { useEffect } from 'react'
 
-import { getCanvas, initShaders, clearCanvas } from './webglUtils'
+import { getCanvasContextAndProgram, initShaders, clearCanvas } from './webglUtils'
 
 type RunGl = (gl: WebGLRenderingContext, program: WebGLProgram) => void
 
+export const draw = (VSHADER: string, FSHADER: string, drawFunc: RunGl) => {
+  const { gl, program } = getCanvasContextAndProgram()
+  initShaders(gl, program, VSHADER, FSHADER)
+  clearCanvas(gl)
+  drawFunc(gl, program)
+  return {
+    gl,
+    program,
+  }
+}
+
 export const useWebgl = (VSHADER: string, FSHADER: string, cb: RunGl) => {
   useEffect(() => {
-    const canvas = getCanvas()
-    const gl = canvas.getContext('webgl') as WebGLRenderingContext
-    const program = initShaders(gl, VSHADER, FSHADER)
-    gl.clearColor(0.0, 0.0, 0.0, 0.6)
-    gl.clear(gl.COLOR_BUFFER_BIT)
+    const { gl, program } = draw(VSHADER, FSHADER, cb)
+    // const { canvas, gl, program } = getCanvasContextAndProgram()
+    // initShaders(gl, program, VSHADER, FSHADER)
+    // clearCanvas(gl)
 
-    cb(gl, program)
+    // cb(gl, program)
 
-    return () => clearCanvas(gl)
+    return () => {
+      clearCanvas(gl)
+      const shaders = gl.getAttachedShaders(program)
+      gl.deleteProgram(program)
+      if (shaders) {
+        shaders.forEach(shader => {
+          gl.deleteShader(shader)
+        })
+      }
+    }
   }, [VSHADER, FSHADER, cb])
 }

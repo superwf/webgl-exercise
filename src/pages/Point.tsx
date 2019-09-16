@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { getCanvas, initShaders, clearCanvas } from '../webglUtils'
-import { useWebgl } from '../hooks'
+import { useWebgl, draw } from '../hooks'
+import { clearCanvas } from '../webglUtils'
 
 const VSHADER = `
 attribute vec4 a_Position;
@@ -13,16 +13,30 @@ const FSHADER = `void main() {
   gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
 }`
 
-const draw = (gl: WebGLRenderingContext, program: WebGLProgram) => {
+const drawPoint = (gl: WebGLRenderingContext, program: WebGLProgram) => {
+  clearCanvas(gl)
   const aPositon = gl.getAttribLocation(program, 'a_Position')
   gl.vertexAttrib3f(aPositon, 0.0, 0.0, 0.0)
 
   gl.drawArrays(gl.POINTS, 0, 1)
 }
 
+const drawMovePoint = (gl: WebGLRenderingContext, program: WebGLProgram) => {
+  clearCanvas(gl)
+  const aPositon = gl.getAttribLocation(program, 'a_Position')
+  gl.vertexAttrib3f(aPositon, 0.3, 0.0, 0.0)
+
+  gl.drawArrays(gl.POINTS, 0, 1)
+}
+
 const Point = () => {
-  useWebgl(VSHADER, FSHADER, draw)
-  return <p>drow one point</p>
+  useWebgl(VSHADER, FSHADER, drawPoint)
+  return (
+    <p>
+      <button onClick={() => draw(VSHADER, FSHADER, drawMovePoint)}>move to right</button>
+      <button onClick={() => draw(VSHADER, FSHADER, drawPoint)}>restore</button>
+    </p>
+  )
 }
 
 export default Point

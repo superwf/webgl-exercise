@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { getCanvas, initShaders, clearCanvas } from '../webglUtils'
 import { useWebgl } from '../hooks'
 
 const VSHADER = `

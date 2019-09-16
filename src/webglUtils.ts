@@ -1,5 +1,14 @@
-export const getCanvas: () => HTMLCanvasElement = () => {
-  return document.querySelector('#canvas') as HTMLCanvasElement
+// import { memoize } from 'lodash'
+
+export const getCanvasContextAndProgram = () => {
+  const canvas = document.querySelector('#canvas') as HTMLCanvasElement
+  const gl = canvas.getContext('webgl') as WebGLRenderingContext
+  const program = gl.createProgram() as WebGLProgram
+  return {
+    canvas,
+    gl,
+    program,
+  }
 }
 
 /* lib/cuon-utils.js */
@@ -11,8 +20,8 @@ export const getCanvas: () => HTMLCanvasElement = () => {
  * @param fshader a fragment shader program (string)
  * @return true, if the program object was created and successfully made current
  */
-export function initShaders(gl: WebGLRenderingContext, vshader: string, fshader: string) {
-  const program = createProgram(gl, vshader, fshader)
+export function initShaders(gl: WebGLRenderingContext, program: WebGLProgram, vshader: string, fshader: string) {
+  createProgram(gl, program, vshader, fshader)
   if (!program) {
     console.log('Failed to create program')
     return false
@@ -29,7 +38,7 @@ export function initShaders(gl: WebGLRenderingContext, vshader: string, fshader:
  * @param fshader a fragment shader program (string)
  * @return created program object, or null if the creation has failed
  */
-function createProgram(gl: WebGLRenderingContext, vshader: string, fshader: string) {
+function createProgram(gl: WebGLRenderingContext, program: WebGLProgram, vshader: string, fshader: string) {
   // Create shader object
   var vertexShader = loadShader(gl, gl.VERTEX_SHADER, vshader)
   var fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fshader)
@@ -38,10 +47,10 @@ function createProgram(gl: WebGLRenderingContext, vshader: string, fshader: stri
   }
 
   // Create a program object
-  const program = gl.createProgram() as WebGLProgram
-  if (!program) {
-    return null
-  }
+  // const program = gl.createProgram() as WebGLProgram
+  // if (!program) {
+  //   return null
+  // }
 
   // Attach the shader objects
   gl.attachShader(program, vertexShader)
