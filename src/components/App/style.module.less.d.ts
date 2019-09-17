@@ -1,6 +1,6 @@
 export interface IStyleModuleLess {
   app: string
-  appHeader: string
+  appContent: string
   canvas: string
   item: string
   nav: string

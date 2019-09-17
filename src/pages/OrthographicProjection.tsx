@@ -15,29 +15,31 @@ varying vec4 v_Color;
 void main() {
   gl_Position = u_ProjMatrix * u_ViewMatrix * u_rotate * a_Position;
   v_Color = a_Color;
-}`
+}
+`
 
 const FSHADER = `
 precision mediump float;
 varying vec4 v_Color;
 void main() {
   gl_FragColor = v_Color;
-}`
+}
+`
 
 /* eslint-disable */
 const vertexData = new Float32Array([
-    //顶点坐标颜色
-    0.0, 0.5, -0.4, 0.4, 1.0, 0.4,
-    -0.5, -0.5, -0.4, 0.4, 1.0, 0.4,
-    0.5, -0.5, -0.4, 1.0, 0.4, 0.4,
+  //顶点坐标颜色
+  0.0, 0.5, -0.4, 0.4, 1.0, 0.4,
+  -0.5, -0.5, -0.4, 0.4, 1.0, 0.4,
+  0.5, -0.5, -0.4, 1.0, 0.4, 0.4,
 
-    0.5, 0.4, -0.2, 1.0, 0.4, 0.4,
-    -0.5, 0.4, -0.2, 1.0, 1.0, 0.4,
-    0, -0.6, -0.2, 1.0, 1.0, 0.4,
+  0.5, 0.4, -0.2, 1.0, 0.4, 0.4,
+  -0.5, 0.4, -0.2, 1.0, 1.0, 0.4,
+  0, -0.6, -0.2, 1.0, 1.0, 0.4,
 
-    0.0, 0.5, 0.0, 0.4, 0.4, 1.0,
-    -0.5, -0.5, 0.0, 0.4, 0.4, 1.0,
-    0.5, -0.5, 0.0, 1.0, 0.4, 0.4
+  0.0, 0.5, 0.0, 0.4, 0.4, 1.0,
+  -0.5, -0.5, 0.0, 0.4, 0.4, 1.0,
+  0.5, -0.5, 0.0, 1.0, 0.4, 0.4
 ]);
 /* eslint-enable */
 
@@ -51,7 +53,7 @@ const drawOrthographicProjection = (gl: WebGLRenderingContext, program: WebGLPro
   const aPosition = gl.getAttribLocation(program, 'a_Position')
   const aColor = gl.getAttribLocation(program, 'a_Color')
 
-  var buffer = gl.createBuffer()
+  const buffer = gl.createBuffer()
   gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
   gl.bufferData(gl.ARRAY_BUFFER, vertexData, gl.STATIC_DRAW)
   gl.vertexAttribPointer(aPosition, 3, gl.FLOAT, false, FSIZE * 6, 0)

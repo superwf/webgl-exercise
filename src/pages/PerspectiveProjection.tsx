@@ -15,29 +15,31 @@ varying vec4 v_Color;
 void main() {
   gl_Position = u_ProjMatrix * u_ViewMatrix * u_rotate * a_Position;
   v_Color = a_Color;
-}`
+}
+`
 
 const FSHADER = `
 precision mediump float;
 varying vec4 v_Color;
 void main() {
   gl_FragColor = v_Color;
-}`
+}
+`
 
 /* eslint-disable */
 const vertexData = new Float32Array([
-    //顶点坐标颜色
-    0.0, 0.5, -1.0, 0.4, 1.0, 0.4,
-    -0.5, -0.5, -1.0, 0.4, 1.0, 0.4,
-    0.5, -0.5, -1.0, 1.0, 0.4, 0.4,
+  //顶点坐标颜色
+  0.0, 0.5, -1.0, 0.4, 1.0, 0.4,
+  -0.5, -0.5, -1.0, 0.4, 1.0, 0.4,
+  0.5, -0.5, -1.0, 1.0, 0.4, 0.4,
 
-    0.5, 0.4, 0.2, 1.0, 0.4, 0.4,
-    -0.5, 0.4, 0.2, 1.0, 1.0, 0.4,
-    0, -0.6, 0.2, 1.0, 1.0, 0.4,
+  0.5, 0.4, 0.2, 1.0, 0.4, 0.4,
+  -0.5, 0.4, 0.2, 1.0, 1.0, 0.4,
+  0, -0.6, 0.2, 1.0, 1.0, 0.4,
 
-    0.0, 0.5, 1.0, 0.4, 0.4, 1.0,
-    -0.5, -0.5, 1.0, 0.4, 0.4, 1.0,
-    0.5, -0.5, 1.0, 1.0, 0.4, 0.4
+  0.0, 0.5, 1.0, 0.4, 0.4, 1.0,
+  -0.5, -0.5, 1.0, 0.4, 0.4, 1.0,
+  0.5, -0.5, 1.0, 1.0, 0.4, 0.4
 ])
 /* eslint-enable */
 
@@ -75,15 +77,17 @@ const drawPerspectiveProjection = (gl: WebGLRenderingContext, program: WebGLProg
   // 设置投影
   const uProjMatrix = gl.getUniformLocation(program, 'u_ProjMatrix')
 
-  const fov = Math.PI / 3,
-    aspect = 1.0
-  const near = 1.0,
-    far = 100.0
+  const fov = Math.PI / 3
+  const aspect = 1.0
+  const near = 1.0
+  const far = 100.0
   const projMatrix = mat4.perspective(mat4.create(), fov, aspect, near, far)
   gl.uniformMatrix4fv(uProjMatrix, false, projMatrix)
 
-  gl.enable(gl.DEPTH_TEST)
+  // 开启深度检测、多边形偏移
+  gl.enable(gl.DEPTH_TEST | gl.POLYGON_OFFSET_FILL)
   gl.clear(gl.DEPTH_BUFFER_BIT)
+  gl.polygonOffset(1.0, 1.0)
 
   gl.drawArrays(gl.TRIANGLES, 0, pointCount)
 }

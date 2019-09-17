@@ -20,7 +20,7 @@ const App: React.FC<IProps> = props => {
       <header className={s.nav}>
         <Nav />
       </header>
-      <section className={s.appHeader}>
+      <section className={s.appContent}>
         <canvas width="500p" height="500" id="canvas" className={s.canvas} />
         <Router history={history}>
           <TransitionRoute routes={routes} />

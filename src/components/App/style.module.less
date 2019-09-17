@@ -2,9 +2,9 @@
   text-align: center;
 }
 
-.appHeader {
+.appContent {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: calc(100vh - 3rem);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,14 +18,14 @@
 }
 
 .nav {
-  height: 3em;
-  line-height: 3em;
+  height: 3rem;
+  line-height: 3rem;
   display: flex;
   justify-content: flex-start;
 }
 
 .item {
   & + .item {
-    margin-left: 1em;
+    margin-left: 1rem;
   }
 }
