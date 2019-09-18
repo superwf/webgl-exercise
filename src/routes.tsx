@@ -9,6 +9,8 @@ const OrthographicProjection = React.lazy(() =>
 const PerspectiveProjection = React.lazy(() =>
   import(/* webpackChunkName: "PerspectiveProjection" */ './pages/PerspectiveProjection'),
 )
+const Cube = React.lazy(() => import(/* webpackChunkName: "Cube" */ './pages/Cube'))
+const LightCube = React.lazy(() => import(/* webpackChunkName: "LightCube" */ './pages/LightCube'))
 
 export const routes = [
   {
@@ -24,7 +26,7 @@ export const routes = [
     path: '/points',
   },
   {
-    key: 'sampler',
+    key: 'Texure Sampler',
     exact: true,
     component: (props: any) => <Sampler {...props} />,
     path: '/sampler',
@@ -40,5 +42,17 @@ export const routes = [
     exact: true,
     component: (props: any) => <PerspectiveProjection {...props} />,
     path: '/perspective-projection',
+  },
+  {
+    key: 'Cube',
+    exact: true,
+    component: (props: any) => <Cube {...props} />,
+    path: '/cube',
+  },
+  {
+    key: 'Light Cube',
+    exact: true,
+    component: (props: any) => <LightCube {...props} />,
+    path: '/light-cube',
   },
 ]
