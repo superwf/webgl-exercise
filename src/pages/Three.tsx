@@ -2,13 +2,20 @@ import * as React from 'react'
 import * as THREE from 'three'
 import { getCanvasContextAndProgram } from '../webglUtils'
 import * as dat from 'dat.gui'
+import { WEBGL } from 'three/examples/jsm/WebGL'
+
+console.log(WEBGL.isWebGL2Available())
+
+let ticker: any
 
 const useThree = () => {
   React.useEffect(() => {
     const scene = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000)
+    // const camera = new THREE.OrthographicCamera(-20, 20, -20, 20, 1, 1000)
     const { canvas } = getCanvasContextAndProgram()
-    const renderer = new THREE.WebGLRenderer({ canvas })
+    const context = canvas.getContext('webgl2', { alpha: false }) as WebGLRenderingContext
+    const renderer = new THREE.WebGLRenderer({ canvas, context })
     renderer.setClearColor(0)
     // renderer.setSize(500, 500)
 
@@ -45,12 +52,45 @@ const useThree = () => {
     })
     scene.add(sphere)
 
+    // const text = new THREE.TextGeometry('ABC', {
+    //   font: 'monospace',
+    //   size: 80,
+    //   height: 5,
+    //   curveSegments: 12,
+    //   bevelEnabled: true,
+    //   bevelThickness: 10,
+    //   bevelSize: 8,
+    //   bevelSegments: 5,
+    // })
+    // scene.add(text)
+
     // section.appendChild(renderer.domElement)
     renderer.renderBufferDirect
-    renderer.render(scene, camera)
+    const render = () => {
+      renderer.render(scene, camera)
+      ticker = requestAnimationFrame(render)
+    }
 
     const gui = new dat.GUI()
-  })
+
+    const cubeGui = gui.addFolder('cube rotation')
+    cubeGui.add(cube.rotation, 'x')
+    cubeGui.add(cube.rotation, 'y')
+    cubeGui.add(cube.rotation, 'z')
+
+    const sphereGui = gui.addFolder('sphere position')
+    sphereGui.add(sphere.position, 'x')
+    sphereGui.add(sphere.position, 'y')
+    sphereGui.add(sphere.position, 'z')
+
+    cubeGui.open()
+
+    ticker = requestAnimationFrame(render)
+
+    return () => {
+      cancelAnimationFrame(ticker)
+    }
+  }, [])
 }
 
 const Three = () => {
