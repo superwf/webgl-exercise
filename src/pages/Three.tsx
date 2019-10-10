@@ -10,6 +10,7 @@ let ticker: any
 
 const useThree = () => {
   React.useEffect(() => {
+    const gui = new dat.GUI()
     const scene = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000)
     // const camera = new THREE.OrthographicCamera(-20, 20, -20, 20, 1, 1000)
@@ -33,6 +34,11 @@ const useThree = () => {
     camera.position.z = 30
     camera.lookAt(scene.position)
 
+    const cameraGui = gui.addFolder('camera position')
+    cameraGui.add(camera.position, 'x')
+    cameraGui.add(camera.position, 'y')
+    cameraGui.add(camera.position, 'z')
+
     const cubeGeometry = new THREE.BoxGeometry(4, 4, 4)
     const cubeMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true })
     const cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
@@ -42,15 +48,29 @@ const useThree = () => {
     cube.position.z = 0
     scene.add(cube)
 
-    const sphereGeometry = new THREE.SphereGeometry(4, 20, 20)
-    const sphereMaterial = new THREE.MeshBasicMaterial({ color: 0x7777ff, wireframe: true })
-    const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial)
-    Object.assign(sphere.position, {
-      x: 20,
-      y: 4,
-      z: 2,
+    const texLoader = new THREE.TextureLoader()
+    texLoader.load('/logo192.png', tex => {
+      const sphereGeometry = new THREE.SphereGeometry(4, 20, 20)
+      // const sphereMaterial = new THREE.MeshBasicMaterial({ color: 0x7777ff, wireframe: true })
+      tex.wrapS = tex.wrapT = THREE.RepeatWrapping
+      tex.repeat.set(2, 2)
+      const sphereMaterial = new THREE.MeshBasicMaterial({ map: tex })
+      const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial)
+      Object.assign(sphere.position, {
+        x: 20,
+        y: 4,
+        z: 2,
+      })
+      scene.add(sphere)
+
+      const sphereGui = gui.addFolder('sphere position')
+      sphereGui.add(sphere.rotation, 'x')
+      sphereGui.add(sphere.rotation, 'y')
+      sphereGui.add(sphere.rotation, 'z')
+      sphereGui.add(sphere.scale, 'x')
+      sphereGui.add(sphere.scale, 'y')
+      sphereGui.add(sphere.scale, 'z')
     })
-    scene.add(sphere)
 
     // const text = new THREE.TextGeometry('ABC', {
     //   font: 'monospace',
@@ -71,17 +91,10 @@ const useThree = () => {
       ticker = requestAnimationFrame(render)
     }
 
-    const gui = new dat.GUI()
-
     const cubeGui = gui.addFolder('cube rotation')
     cubeGui.add(cube.rotation, 'x')
     cubeGui.add(cube.rotation, 'y')
     cubeGui.add(cube.rotation, 'z')
-
-    const sphereGui = gui.addFolder('sphere position')
-    sphereGui.add(sphere.position, 'x')
-    sphereGui.add(sphere.position, 'y')
-    sphereGui.add(sphere.position, 'z')
 
     cubeGui.open()
 
