@@ -102,6 +102,7 @@ const useThree = () => {
 
     return () => {
       cancelAnimationFrame(ticker)
+      gui.close()
     }
   }, [])
 }

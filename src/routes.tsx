@@ -12,6 +12,7 @@ const PerspectiveProjection = React.lazy(() =>
 const Cube = React.lazy(() => import(/* webpackChunkName: "Cube" */ './pages/Cube'))
 const LightCube = React.lazy(() => import(/* webpackChunkName: "LightCube" */ './pages/LightCube'))
 const Three = React.lazy(() => import(/* webpackChunkName: "Three" */ './pages/Three'))
+const Caffeine = React.lazy(() => import(/* webpackChunkName: "Three" */ './pages/Caffeine'))
 
 export const routes = [
   {
@@ -61,5 +62,11 @@ export const routes = [
     exact: true,
     component: (props: any) => <Three {...props} />,
     path: '/three',
+  },
+  {
+    key: 'Caffeine',
+    exact: true,
+    component: (props: any) => <Caffeine {...props} />,
+    path: '/caffeine',
   },
 ]
